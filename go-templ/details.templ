@@ -1,22 +1,22 @@
 package main
 
+items := [][]string {
+  {"Go", "https://go.dev/doc/", "https://go.dev/images/go-logo-blue.svg"},
+  {"HTMX", "https://htmx.org/docs", "https://htmx.org/img/htmx_logo.2.png"},
+  {"Templ", "https://templ.guide/", "https://templ.guide/img/logo.svg"},
+}
+
 templ details() {
   <div>
     <h3 style="text-align:center;">Welcome to HTMX!</h3>
     <p>You&apos;re using these tools, check their docs to learn more:</p>
     <ul>
-      <li>
-        <img src="https://go.dev/images/go-logo-blue.svg" />
-        <a href="https://go.dev/doc/">Go</a>
-      </li>
-      <li>
-        <img src="https://htmx.org/img/htmx_logo.2.png" />
-        <a href="https://htmx.org/docs">HTMX</a>
-      </li>
-      <li>
-        <img src="https://templ.guide/img/logo.svg" />
-        <a href="https://templ.guide/">Templ</a>
-      </li>
+      for _, item := range items {
+        <li>
+          <img src={item[2]} />
+          <a href={item[1]}>{item[0]}</a>
+        </li>
+      }
     </ul>
   </div>
 }
