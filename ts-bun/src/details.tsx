@@ -13,8 +13,8 @@ export default () => {
           <a href="https://htmx.org/docs">HTMX</a>
         </li>
         <li>
-          <img src="https://raw.githubusercontent.com/facebook/react/main/fixtures/dom/public/react-logo.svg" />
-          <a href="https://react.dev/learn/writing-markup-with-jsx">JSX</a>
+          <img src="https://hono.dev/images/logo.png" />
+          <a href="https://hono.dev/">Hono</a>
         </li>
       </ul>
     </>
