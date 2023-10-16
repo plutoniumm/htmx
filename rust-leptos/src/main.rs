@@ -12,13 +12,6 @@ async fn index(_req: HttpRequest) -> Result<NamedFile> {
 }
 
 // leptos /details render
-#[component]
-pub fn detail_list() -> impl IntoView{
-    return view! {
-        <p>"Hello, world!"</p>
-    };
-}
-
 #[get("/details")]
 async fn deets(_req: HttpRequest) -> HttpResponse {
     let data = [
@@ -30,6 +23,8 @@ async fn deets(_req: HttpRequest) -> HttpResponse {
 
     let html = leptos::ssr::render_to_string(move || {
         return view! {
+            <h3 style="text-align:center;">"Welcome to HTMX!"</h3>
+            <p>"You're using these tools, check their docs to learn more:"</p>
             <ul>
             {
                 data.into_iter()

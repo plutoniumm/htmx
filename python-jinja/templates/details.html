@@ -1,0 +1,10 @@
+<h3 style="text-align:center;">Welcome to HTMX!</h3>
+<p>You're using these tools, check their docs to learn more:</p>
+<ul>
+  {% for item in data %}
+  <li>
+    <img src={{item[2]}} alt={{item[0]}} />
+    <a href={{item[1]}} target="_blank">{{item[0]}}</a>
+  </li>
+  {% endfor %}
+</ul>
