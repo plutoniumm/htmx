@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_file
 from sys import argv
 
 PORT = argv[1] if len(argv) > 1 else 3000
@@ -7,7 +7,7 @@ app = Flask(__name__, static_url_path="/assets/")
 
 @app.route("/")
 def index():
-  return render_template("index.html")
+  return send_file("index.html")
 
 @app.route("/details")
 def details():
