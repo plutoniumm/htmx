@@ -1,20 +1,70 @@
-use actix_web::*;
+use actix_files::{Files, NamedFile};
 
-// basic actix index.html example
-#[get("/")]
-async fn index(req: HttpRequest) -> HttpResponse {
-    return HttpResponse::Ok()
-        .content_type("text/html")
-        .body(include_str!("./index.html"));
+use actix_web::http::header::ContentType;
+// ive done * so its easier to get started,
+// narrow them down as the application is ready for prod
+use actix_web::*;
+use leptos::*;
+use std::env;
+
+async fn index(_req: HttpRequest) -> Result<NamedFile> {
+    return Ok(NamedFile::open("index.html")?);
 }
 
-// static files
-#[get("/assets/{filename}")]
-async fn assets_files(req: HttpRequest) -> HttpResponse {
-    let filename: String = req.match_info().query("filename").parse().unwrap();
-    let path = format!("./assets/{}", filename);
+// leptos /details render
+#[component]
+pub fn detail_list() -> impl IntoView{
+    return view! {
+        <p>"Hello, world!"</p>
+    };
+}
+
+#[get("/details")]
+async fn deets(_req: HttpRequest) -> HttpResponse {
+    let data = [
+        ("Rust", "https://doc.rust-lang.org/std/", "https://i.imgur.com/vIsMwPx.png"),
+        ("HTMX", "https://htmx.org/docs", "https://htmx.org/img/htmx_logo.2.png"),
+        ("Actix", "https://actix.rs/docs", "https://actix.rs/img/logo.png"),
+        ("Leptos", "https://leptos-rs.github.io/leptos/", "https://leptos.dev/images/leptos_circle.svg"),
+    ];
+
+    let html = leptos::ssr::render_to_string(move || {
+        return view! {
+            <ul>
+            {
+                data.into_iter()
+                .map(|item| view! {
+                    <li>
+                        <img src={item.2} />
+                        <a href={item.1}>{item.0}</a>
+                    </li>
+                })
+                .collect::<Vec<_>>()
+            }
+            </ul>
+        };
+    }).into_owned();
 
     return HttpResponse::Ok()
-        .content_type("text/html")
-        .body(include_str!(&path));
+        .content_type(ContentType::html())
+        .body(html);
+}
+
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    let args: Vec<String> = env::args().collect();
+    let port = &args[1];
+    let port: u16 = port.parse().unwrap();
+
+    println!("Starting server on port {}", port);
+
+    return HttpServer::new(||
+        App::new()
+        .route("/", web::get().to(index))
+        .service(deets)
+        .service(Files::new("/assets", "assets").show_files_listing())
+    )
+    .bind(("127.0.0.1", port))?
+    .run()
+    .await;
 }
