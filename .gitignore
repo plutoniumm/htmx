@@ -6,3 +6,6 @@ go-templ/assets/
 
 rust-leptos/index.html
 rust-leptos/assets/
+
+python-jinja/index.html
+python-jinja/assets/
