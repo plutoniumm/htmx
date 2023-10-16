@@ -1,13 +1,18 @@
-from flask import Flask, render_template, send_file
+from flask import Flask, render_template, send_file, request, send_from_directory
+from datetime import datetime
 from sys import argv
 
 PORT = argv[1] if len(argv) > 1 else 3000
 
-app = Flask(__name__, static_url_path="/assets/")
+app = Flask(__name__)
 
 @app.route("/")
 def index():
   return send_file("index.html")
+
+@app.route("/assets/<path:path>")
+def assets(path):
+  return send_from_directory("assets", path)
 
 @app.route("/details")
 def details():
@@ -18,7 +23,15 @@ def details():
     ["Jinja", "https://jinja.palletsprojects.com/","https://jinja.palletsprojects.com/_static/jinja-logo-sidebar.png"]
   ]
 
-  return render_template("details.html", data=data)
+  ua = request.headers.get('User-Agent')
+  dt = datetime.now().strftime('%A, %d %B')
+
+  return render_template(
+    "details.html",
+    data=data,
+    datetime=dt,
+    browser=ua
+  )
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=PORT)
