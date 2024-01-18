@@ -2,7 +2,7 @@ const data = [
   ['Bun', 'https://bun.sh/docs', 'https://bun.sh/logo_avatar.svg'],
   ['HTMX', 'https://htmx.org/docs', 'https://htmx.org/img/htmx_logo.2.png'],
   ['Hono', 'https://hono.dev/', 'https://hono.dev/images/logo.png'],
-]
+];
 
 
 export default () => {
@@ -19,5 +19,5 @@ export default () => {
         ))}
       </ul>
     </>
-  )
-}
+  );
+};

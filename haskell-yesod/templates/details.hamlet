@@ -1,0 +1,7 @@
+<h3 style="text-align:center;">Welcome to HTMX!
+<p>You're using these tools, check their docs to learn more:
+<ul>
+    $forall (name, href, img) <- techs
+        <li>
+            <img src=#{img}>
+            <a href="#{href}">#{name}
