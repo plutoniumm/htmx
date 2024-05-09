@@ -23,15 +23,7 @@ def details():
     ["Jinja", "https://jinja.palletsprojects.com/","https://jinja.palletsprojects.com/_static/jinja-logo-sidebar.png"]
   ]
 
-  ua = request.headers.get('User-Agent')
-  dt = datetime.now().strftime('%A, %d %B')
-
-  return render_template(
-    "details.html",
-    data=data,
-    datetime=dt,
-    browser=ua
-  )
+  return render_template("details.html", data=data)
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=PORT)

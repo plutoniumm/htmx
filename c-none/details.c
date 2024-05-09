@@ -4,6 +4,8 @@
 
 #define BUFF 1024 * 1024 /*2^20*/
 
+int CHARS = BUFF * sizeof(char);
+
 struct Website {
   const char* name;
   const char* url;
@@ -18,7 +20,7 @@ struct Website data[] = {
 
 const char* c(const char* a,
               const char* b) {  // sometimes a man just needs to copy
-  char* result = (char*)malloc(BUFF * sizeof(char));
+  char* result = (char*)malloc(CHARS);
   snprintf(result, BUFF, "%s%s", a, b);
   return result;
 }
@@ -43,13 +45,13 @@ const char* vtag(const char* result, const char* tag, const char* attr) {
 
 // return ul[li[a[url, name] img[logo]]] from websites
 const char* details() {
-  char* result = (char*)malloc(BUFF * sizeof(char));
+  char* result = (char*)malloc(CHARS);
   tag(result, "h3", "Welcome to HTMX!", "style=\"text-align:center;\"");
   tag(result, "p",
       "You're using these tools, check their docs to learn more:", NULL);
 
-  char* list = (char*)malloc(BUFF * sizeof(char));
-  char* inner = (char*)malloc(BUFF * sizeof(char));
+  char* list = (char*)malloc(CHARS);
+  char* inner = (char*)malloc(CHARS);
   for (int i = 0; i < sizeof(data) / sizeof(data[0]); i++) {
     vtag(inner, "img", c("src=", data[i].logo));
     vtag(inner, "a", c("href=", data[i].url));

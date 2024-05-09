@@ -35,7 +35,7 @@ appMain = do
 
 getHomeR :: Handler Html
 getHomeR = defaultLayout $ do
-    setTitle "HTMX / Hono (same-thing)"
+    setTitle "HTMX / Haskell (same-thing)"
     $(widgetFile "homepage")
 
 
@@ -50,7 +50,7 @@ getDetailsR :: Handler Html
 getDetailsR = do
     let techs = techstack::[(Text, Text, Text)]
     defaultLayout $ do
-        setTitle "HTMX / Yesod (same-thing)"
+        setTitle "HTMX / Haskell (same-thing)"
         $(widgetFile "details")
 
 handler :: Handler a -> IO a

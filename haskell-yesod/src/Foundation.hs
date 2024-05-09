@@ -22,6 +22,8 @@ data App = App {
 mkYesodData "App" $(parseRoutesFile "src/routes.yesodroutes")
 
 instance Yesod App where
+    makeSessionBackend _ = return Nothing
+
     defaultLayout :: Widget -> Handler Html
     defaultLayout widget = do
         pc <- widgetToPageContent $ do

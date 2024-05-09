@@ -1,5 +1,4 @@
 // HTMX / C (same-thing)
-// C webserver with clearsilver templates
 #include <arpa/inet.h>
 #include <ctype.h>
 #include <dirent.h>
@@ -40,9 +39,12 @@ void interkill(int sig) { skill(EXIT_SUCCESS, NULL); }
 
 void build_http_response(const char* file_name, const char* file_ext,
                          char* response, size_t* response_len) {
-  printf("Request: %s\n", file_name);
   if (strlen(file_name) == 0) {
+    printf("Request: index.html\n");
     file_name = "index.html";
+    file_ext = "html";
+  } else {
+    printf("Request: %s\n", file_name);
   }
 
   char* header = (char*)malloc(BUFF * sizeof(char));
