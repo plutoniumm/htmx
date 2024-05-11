@@ -5,9 +5,11 @@
 </div>
 
 (Language + Runtime with Renderer)
-- [`c-none`](./c-none/readme.md): C (the full chad lifestyle, no external deps)
+- [`c-none`](./c-none/readme.md): C (the full chad lifestyle, no deps)
 - [`go-templ`](./go-templ/readme.md): Go + Echo with Templ
 - [`haskell-yesod`](./haskell-yesod/readme.md): Haskell + Yesod with Shakespeare
+- [`lua-pegasus`](./lua-pegasus/readme.md): Lua with Pegasus
+- [`php-none`](./php-none/readme.md): PHP + PHP with PHP
 - [`python-jinja`](./python-jinja/readme.md): Python + Flask with Jinja2
 - [`ruby-rails`](./ruby-rails/readme.md): Ruby + Rails with ERB
 - [`rust-leptos`](./rust-leptos/readme.md): Rust + Actix with Leptos
