@@ -1,0 +1,10 @@
+<h3 style="text-align:center;">Welcome to HTMX!</h3>
+<p>You're using these tools, check their docs to learn more:</p>
+<ul>
+  <% @data.each do |name, url, image| %>
+    <li>
+      <img src="<%= image %>" />
+      <a href="<%= url %>"><%= name %></a>
+    </li>
+  <% end %>
+</ul>

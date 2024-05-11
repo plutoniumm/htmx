@@ -1,0 +1,6 @@
+/.bundle
+**/tmp/*
+**/log/*
+
+/public/assets
+/config/master.key
