@@ -9,6 +9,7 @@
 - [`go-templ`](./go-templ/readme.md): Go + Echo with Templ
 - [`haskell-yesod`](./haskell-yesod/readme.md): Haskell + Yesod with Shakespeare
 - [`lua-pegasus`](./lua-pegasus/readme.md): Lua with Pegasus
+- [`ocaml-dream`](./ocaml-dream/readme.md): OCaml + Dream
 - [`php-none`](./php-none/readme.md): PHP + PHP with PHP
 - [`python-jinja`](./python-jinja/readme.md): Python + Flask with Jinja2
 - [`ruby-rails`](./ruby-rails/readme.md): Ruby + Rails with ERB

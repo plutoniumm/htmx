@@ -12,3 +12,5 @@ rust-leptos/assets/
 
 python-jinja/index.html
 python-jinja/assets/
+
+_build/
