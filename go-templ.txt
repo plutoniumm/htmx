@@ -1,0 +1,313 @@
+
+
+#-# ./go-templ/go.mod
+module main
+
+go 1.21.1
+
+require (
+	github.com/a-h/templ v0.2.364
+	github.com/labstack/echo/v4 v4.11.2
+)
+
+require (
+	github.com/labstack/gommon v0.4.0 // indirect
+	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/mattn/go-isatty v0.0.19 // indirect
+	github.com/valyala/bytebufferpool v1.0.0 // indirect
+	github.com/valyala/fasttemplate v1.2.2 // indirect
+	golang.org/x/crypto v0.14.0 // indirect
+	golang.org/x/net v0.17.0 // indirect
+	golang.org/x/sys v0.13.0 // indirect
+	golang.org/x/text v0.13.0 // indirect
+)
+
+
+#-# ./go-templ/index.html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>HTMX / Go (same-thing)</title>
+
+  <script src="https://htmx.org/js/htmx.js"></script>
+  <link rel="stylesheet" href="/assets/global.css">
+</head>
+
+<body>
+  <div class="card">
+    <img class="wbg" src="/assets/logo.svg" height="150px" width="150px" alt="htmx logo">
+    <div>
+      <h4 style="margin: 0;">htmx / skill-issue (same thing)</h4>
+      <p style="margin-bottom: 0;">htmx is a javascript library that allows you to access AJAX, WebSockets and Server
+        Sent Events directly in
+        HTML, using attributes</p>
+
+      <br />
+      <button hx-get="/details" hx-swap="innerHTML" hx-target="#details"
+        style="border-radius: 5px;background:#47d;color:#fff;border:0;padding: 7px;">Read
+        More</button>
+    </div>
+  </div>
+
+  <div id="details" style="width: min(600px, 100%);margin: 10px auto;"></div>
+</body>
+
+</html>
+
+#-# ./go-templ/go.sum
+github.com/a-h/templ v0.2.364 h1:4vseUATyAzacrOOU1jPmLfkxet6Yg/NAmsA/4rDDhfo=
+github.com/a-h/templ v0.2.364/go.mod h1:6Lfhsl3Z4/vXl7jjEjkJRCqoWDGjDnuKgzjYMDSddas=
+github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
+github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/google/go-cmp v0.5.9 h1:O2Tfq5qg4qc4AmwVlvv0oLiVAGB7enBSJ2x2DqQFi38=
+github.com/google/go-cmp v0.5.9/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
+github.com/labstack/echo/v4 v4.11.2 h1:T+cTLQxWCDfqDEoydYm5kCobjmHwOwcv4OJAPHilmdE=
+github.com/labstack/echo/v4 v4.11.2/go.mod h1:UcGuQ8V6ZNRmSweBIJkPvGfwCMIlFmiqrPqiEBfPYws=
+github.com/labstack/gommon v0.4.0 h1:y7cvthEAEbU0yHOf4axH8ZG2NH8knB9iNSoTO8dyIk8=
+github.com/labstack/gommon v0.4.0/go.mod h1:uW6kP17uPlLJsD3ijUYn3/M5bAxtlZhMI6m3MFxTMTM=
+github.com/mattn/go-colorable v0.1.11/go.mod h1:u5H1YNBxpqRaxsYJYSkiCWKzEfiAb1Gb520KVy5xxl4=
+github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxecdEvA=
+github.com/mattn/go-colorable v0.1.13/go.mod h1:7S9/ev0klgBDR4GtXTXX8a3vIGJpMovkB8vQcUbaXHg=
+github.com/mattn/go-isatty v0.0.14/go.mod h1:7GGIvUiUoEMVVmxf/4nioHXj79iQHKdU27kJ6hsGG94=
+github.com/mattn/go-isatty v0.0.16/go.mod h1:kYGgaQfpe5nmfYZH+SKPsOc2e4SrIfOl2e/yFXSvRLM=
+github.com/mattn/go-isatty v0.0.19 h1:JITubQf0MOLdlGRuRq+jtsDlekdYPia9ZFsB8h/APPA=
+github.com/mattn/go-isatty v0.0.19/go.mod h1:W+V8PltTTMOvKvAeJH7IuucS94S2C6jfK/D7dTCTo3Y=
+github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
+github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
+github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
+github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
+github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
+github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=
+github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyCJ6HpOuEn7z0Csc=
+github.com/valyala/fasttemplate v1.2.1/go.mod h1:KHLXt3tVN2HBp8eijSv/kGJopbvo7S+qRAEEKiv+SiQ=
+github.com/valyala/fasttemplate v1.2.2 h1:lxLXG0uE3Qnshl9QyaK6XJxMXlQZELvChBOCmQD0Loo=
+github.com/valyala/fasttemplate v1.2.2/go.mod h1:KHLXt3tVN2HBp8eijSv/kGJopbvo7S+qRAEEKiv+SiQ=
+golang.org/x/crypto v0.14.0 h1:wBqGXzWJW6m1XrIKlAH0Hs1JJ7+9KBwnIO8v66Q9cHc=
+golang.org/x/crypto v0.14.0/go.mod h1:MVFd36DqK4CsrnJYDkBA3VC4m2GkXAM0PvzMCn4JQf4=
+golang.org/x/net v0.17.0 h1:pVaXccu2ozPjCXewfr1S7xza/zcXTity9cCdXQYSjIM=
+golang.org/x/net v0.17.0/go.mod h1:NxSsAGuq816PNPmqtQdLE42eU2Fs7NoRIZrHJAlaCOE=
+golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.0.0-20210927094055-39ccf1dd6fa6/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.0.0-20211103235746-7861aae1554b/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.0.0-20220811171246-fbc7d0a398ab/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.6.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.13.0 h1:Af8nKPmuFypiUBjVoU9V20FiaFXOcuZI21p0ycVYYGE=
+golang.org/x/sys v0.13.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/text v0.13.0 h1:ablQoSUd0tRdKxZewP80B+BaqeKJuVhuRxj/dkrun3k=
+golang.org/x/text v0.13.0/go.mod h1:TvPlkZtksWOMsz7fbANvkp4WM8x/WCo/om8BMLbz+aE=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
+gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
+gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
+gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
+gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
+
+
+#-# ./go-templ/details.templ
+package main
+
+items := [][]string {
+  {"Go", "https://go.dev/doc/", "https://go.dev/images/go-logo-blue.svg"},
+  {"HTMX", "https://htmx.org/docs", "https://htmx.org/img/htmx_logo.2.png"},
+  {"Templ", "https://templ.guide/", "https://templ.guide/img/logo.svg"},
+}
+
+templ details() {
+  <div>
+    <h3 style="text-align:center;">Welcome to HTMX!</h3>
+    <p>You&apos;re using these tools, check their docs to learn more:</p>
+    <ul>
+      for _, item := range items {
+        <li>
+          <img src={item[2]} />
+          <a href={item[1]}>{item[0]}</a>
+        </li>
+      }
+    </ul>
+  </div>
+}
+
+#-# ./go-templ/.gitignore
+
+
+#-# ./go-templ/assets/global.css
+body {
+  font: 300 18px Helvetica;
+}
+
+.card {
+  width: min(600px, calc(100% - 20px));
+  background: linear-gradient(90deg, #ccc 0%, #eee 100%);
+  display: flex;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px auto;
+}
+
+.wbg {
+  background: #fff;
+  border-radius: 10px;
+  margin-right: 12px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+li {
+  margin: 5px;
+  padding: 7px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-between
+}
+
+li img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 7px;
+  border-radius: 50px;
+}
+
+#-# ./go-templ/assets/logo.svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171 159.9" font-size="75" font-family="Helvetica">
+  <path fill="#47d" d="m 112 77 m -81 -59.1 v 110.6 h 122 v -110.5 z m 117.3 105.9 h -112.5 v -101.2 h 112.5 z m -125.7 13.1 v -110.7 l -4.7 4.8 v 110.7 h 122 l 4.8 -4.8 z"/>
+  <text fill="#888" x="37.5" y="95">&lt; &gt;</text>
+  <text fill="#47d" x="81.5" y="101">/</text>
+</svg>
+
+#-# ./go-templ/details_templ.go
+// Code generated by templ@v0.2.364 DO NOT EDIT.
+
+package main
+
+//lint:file-ignore SA4006 This context is only used if a nested component is present.
+
+import "github.com/a-h/templ"
+import "context"
+import "io"
+import "bytes"
+
+func details() templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
+		templBuffer, templIsBuffer := w.(*bytes.Buffer)
+		if !templIsBuffer {
+			templBuffer = templ.GetBuffer()
+			defer templ.ReleaseBuffer(templBuffer)
+		}
+		ctx = templ.InitializeContext(ctx)
+		var_1 := templ.GetChildren(ctx)
+		if var_1 == nil {
+			var_1 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, err = templBuffer.WriteString("<div><h3 style=\"text-align:center;\">")
+		if err != nil {
+			return err
+		}
+		var_2 := `Welcome to HTMX!`
+		_, err = templBuffer.WriteString(var_2)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</h3><p>")
+		if err != nil {
+			return err
+		}
+		var_3 := `You&apos;re using these tools, check their docs to learn more:`
+		_, err = templBuffer.WriteString(var_3)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</p><ul><li><img src=\"https://go.dev/images/go-logo-blue.svg\"><a href=\"https://go.dev/doc/\">")
+		if err != nil {
+			return err
+		}
+		var_4 := `Go`
+		_, err = templBuffer.WriteString(var_4)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</a></li><li><img src=\"https://htmx.org/img/htmx_logo.2.png\"><a href=\"https://htmx.org/docs\">")
+		if err != nil {
+			return err
+		}
+		var_5 := `HTMX`
+		_, err = templBuffer.WriteString(var_5)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</a></li><li><img src=\"https://templ.guide/img/logo.svg\"><a href=\"https://templ.guide/\">")
+		if err != nil {
+			return err
+		}
+		var_6 := `Templ`
+		_, err = templBuffer.WriteString(var_6)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</a></li></ul></div>")
+		if err != nil {
+			return err
+		}
+		if !templIsBuffer {
+			_, err = templBuffer.WriteTo(w)
+		}
+		return err
+	})
+}
+
+
+#-# ./go-templ/main.go
+package main
+
+import (
+	"context"
+	"fmt"
+	"net/http"
+	"os"
+
+	"github.com/a-h/templ"
+	"github.com/labstack/echo/v4"
+)
+
+func render(component templ.Component) string {
+	templBuffer := templ.GetBuffer()
+	defer templ.ReleaseBuffer(templBuffer)
+	ctx := templ.InitializeContext(context.Background())
+	err := component.Render(ctx, templBuffer)
+	if err != nil {
+		panic(err)
+	}
+	return templBuffer.String()
+}
+
+func main() {
+	e := echo.New()
+
+	var PORT string
+	if len(os.Args) > 1 {
+		PORT = os.Args[1]
+	} else {
+		PORT = "3000"
+	}
+
+	e.Static("/assets", "assets")
+	e.File("/", "index.html")
+	e.GET("/details", func(c echo.Context) error {
+		return c.HTML(http.StatusOK, render(details()))
+	})
+
+	fmt.Println("Listening on port " + PORT)
+	http.ListenAndServe(":3000", e)
+}

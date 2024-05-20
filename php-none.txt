@@ -1,0 +1,117 @@
+
+
+#-# ./php-none/index.html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>HTMX / PHP (same-thing)</title>
+
+  <script src="https://htmx.org/js/htmx.js"></script>
+  <link rel="stylesheet" href="/global.css">
+</head>
+
+<body>
+  <div class="card">
+    <img class="wbg" src="/logo.svg" height="150px" width="150px" alt="htmx logo">
+    <div>
+      <h4 style="margin: 0;">htmx / skill-issue (same thing)</h4>
+      <p style="margin-bottom: 0;">htmx is a javascript library that allows you to access AJAX, WebSockets and Server
+        Sent Events directly in
+        HTML, using attributes</p>
+
+      <br />
+      <button hx-get="/details" hx-swap="innerHTML" hx-target="#details"
+        style="border-radius: 5px;background:#47d;color:#fff;border:0;padding: 7px;">Read
+        More</button>
+    </div>
+  </div>
+
+  <div id="details" style="width: min(600px, 100%);margin: 10px auto;"></div>
+</body>
+
+</html>
+
+#-# ./php-none/index.php
+<?php
+  $route = $_SERVER['REQUEST_URI'];
+
+  if ($route === '/') {
+      $content = file_get_contents('index.html');
+      echo $content;
+  } else if ($route === '/details') {
+      $data = [
+        ['PHP', 'https://bun.sh/docs', 'https://www.php.net/images/logos/php-logo.svg'],
+        ['HTMX', 'https://htmx.org/docs', 'https://htmx.org/img/htmx_logo.2.png']
+      ];
+
+      $content = '<ul>';
+      foreach ($data as $item) {
+        $content .= '<li>';
+          $content .= '<img src="' . $item[2] . '" />';
+          $content .= '<a href="' . $item[1] . '">' . $item[0] . '</a>';
+        $content .= '</li>';
+      }
+      $content .= '</ul>';
+
+      echo $content;
+  } else {
+      http_response_code(404);
+      echo '404 Not Found';
+  }
+?>
+
+
+#-# ./php-none/global.css
+body {
+  font: 300 18px Helvetica;
+}
+
+.card {
+  width: min(600px, calc(100% - 20px));
+  background: linear-gradient(90deg, #ccc 0%, #eee 100%);
+  display: flex;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px auto;
+}
+
+.wbg {
+  background: #fff;
+  border-radius: 10px;
+  margin-right: 12px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+li {
+  margin: 5px;
+  padding: 7px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-between
+}
+
+li img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 7px;
+  border-radius: 50px;
+}
+
+#-# ./php-none/logo.svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171 159.9" font-size="75" font-family="Helvetica">
+  <path fill="#47d" d="m 112 77 m -81 -59.1 v 110.6 h 122 v -110.5 z m 117.3 105.9 h -112.5 v -101.2 h 112.5 z m -125.7 13.1 v -110.7 l -4.7 4.8 v 110.7 h 122 l 4.8 -4.8 z"/>
+  <text fill="#888" x="37.5" y="95">&lt; &gt;</text>
+  <text fill="#47d" x="81.5" y="101">/</text>
+</svg>

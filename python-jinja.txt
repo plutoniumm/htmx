@@ -1,0 +1,147 @@
+
+
+#-# ./python-jinja/index.html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title> HTMX / Python (same-thing)</title>
+
+  <script src="https://htmx.org/js/htmx.js"></script>
+  <link rel="stylesheet" href="/assets/global.css">
+</head>
+
+<body>
+  <div class="card">
+    <img class="wbg" src="/assets/logo.svg" height="150px" width="150px" alt="htmx logo">
+    <div>
+      <h4 style="margin: 0;">htmx / Python (same thing)</h4>
+      <p style="margin-bottom: 0;">
+        htmx is a javascript library that allows you to access AJAX, WebSockets and Server
+        Sent Events directly in
+        HTML, using attributes
+      </p>
+
+      <br />
+      <button hx-get="/details" hx-swap="innerHTML" hx-target="#details"
+        style="border-radius: 5px;background:#47d;color:#fff;border:0;padding: 7px;">
+        Read More
+      </button>
+    </div>
+  </div>
+
+  <div id="details" style="width: min(600px, 100%);margin: 10px auto;"></div>
+</body>
+
+</html>
+
+#-# ./python-jinja/requirements.txt
+Flask==3.0.2
+
+#-# ./python-jinja/index.py
+from flask import Flask, render_template, send_file, request, send_from_directory
+from datetime import datetime
+from sys import argv
+
+PORT = argv[1] if len(argv) > 1 else 3000
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+  return send_file("index.html")
+
+@app.route("/assets/<path:path>")
+def assets(path):
+  return send_from_directory("assets", path)
+
+@app.route("/details")
+def details():
+  data = [
+    ['Python', 'https://wiki.python.org/moin/BeginnersGuide', 'https://www.python.org/static/img/python-logo-large.png'],
+    ['HTMX', 'https://htmx.org/docs', 'https://htmx.org/img/htmx_logo.2.png'],
+    ['Flask', 'https://flask.palletsprojects.com/', 'https://flask.palletsprojects.com/_static/shortcut-icon.png'],
+    ["Jinja", "https://jinja.palletsprojects.com/","https://jinja.palletsprojects.com/_static/jinja-logo-sidebar.png"]
+  ]
+
+  return render_template("details.html", data=data)
+
+if __name__ == '__main__':
+  app.run(host='0.0.0.0', port=PORT)
+
+#-# ./python-jinja/.gitignore
+__pycache__
+
+#-# ./python-jinja/templates/details.html
+<h3 style="text-align:center;">Welcome to HTMX!</h3>
+<ul>
+  {% for item in data %}
+  <li>
+    <img src={{item[2]}} alt={{item[0]}} />
+    <a href={{item[1]}} target="_blank">{{item[0]}}</a>
+  </li>
+  {% endfor %}
+</ul>
+
+#-# ./python-jinja/assets/global.css
+body {
+  font: 300 18px Helvetica;
+}
+
+code {
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 5px;
+  background: #222;
+  color: #fff;
+  display: block;
+}
+
+.card {
+  width: min(600px, calc(100% - 20px));
+  background: linear-gradient(90deg, #ccc 0%, #eee 100%);
+  display: flex;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px auto;
+}
+
+.wbg {
+  background: #fff;
+  border-radius: 10px;
+  margin-right: 12px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+li {
+  margin: 5px;
+  padding: 7px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-between
+}
+
+li img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 7px;
+  border-radius: 50px;
+}
+
+#-# ./python-jinja/assets/logo.svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171 159.9" font-size="75" font-family="Helvetica">
+  <path fill="#47d" d="m 112 77 m -81 -59.1 v 110.6 h 122 v -110.5 z m 117.3 105.9 h -112.5 v -101.2 h 112.5 z m -125.7 13.1 v -110.7 l -4.7 4.8 v 110.7 h 122 l 4.8 -4.8 z"/>
+  <text fill="#888" x="37.5" y="95">&lt; &gt;</text>
+  <text fill="#47d" x="81.5" y="101">/</text>
+</svg>

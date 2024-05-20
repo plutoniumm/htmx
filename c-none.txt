@@ -1,0 +1,417 @@
+
+
+#-# ./c-none/index.html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title> HTMX / C (same-thing)</title>
+
+  <script src="https://htmx.org/js/htmx.js"></script>
+  <link rel="stylesheet" href="/assets/global.css">
+</head>
+
+<body>
+  <div class="card">
+    <img class="wbg" src="/assets/logo.svg" height="150px" width="150px" alt="htmx logo">
+    <div>
+      <h4 style="margin: 0;">htmx / Python (same thing)</h4>
+      <p style="margin-bottom: 0;">
+        htmx is a javascript library that allows you to access AJAX, WebSockets and Server
+        Sent Events directly in
+        HTML, using attributes
+      </p>
+
+      <br />
+      <button hx-get="/details" hx-swap="innerHTML" hx-target="#details"
+        style="border-radius: 5px;background:#47d;color:#fff;border:0;padding: 7px;">
+        Read More
+      </button>
+    </div>
+  </div>
+
+  <div id="details" style="width: min(600px, 100%);margin: 10px auto;"></div>
+</body>
+
+</html>
+
+#-# ./c-none/meta.c
+#include "./meta.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define BUFF 1024 * 1024 /*2^20*/
+
+const char* make_header(char* header, int status_code,
+                        const char* status_message, const char* mime_type) {
+  snprintf(header, BUFF,
+           "HTTP/1.1 %d %s\r\n"
+           "Content-Type: %s\r\n"
+           "\r\n",
+           status_code, status_message, mime_type);
+  return header;
+}
+
+const char* get_file_extension(const char* file_name) {
+  const char* dot = strrchr(file_name, '.');
+  if (!dot || dot == file_name) {
+    return "";
+  }
+  return dot + 1;
+}
+
+const char* get_mime_type(const char* file_ext) {
+  /* */ if (strcasecmp(file_ext, "html") == 0 ||
+            strcasecmp(file_ext, "htm") == 0) {
+    return "text/html";
+  } else if (strcasecmp(file_ext, "js") == 0) {
+    return "application/javascript";
+  } else if (strcasecmp(file_ext, "css") == 0) {
+    return "text/css";
+  } else if (strcasecmp(file_ext, "json") == 0) {
+    return "application/json";
+  } else if (strcasecmp(file_ext, "svg") == 0) {
+    return "image/svg+xml";
+  } else if (strcasecmp(file_ext, "xml") == 0) {
+    return "application/xml";
+  } else if (strcasecmp(file_ext, "txt") == 0) {
+    return "text/plain";
+  } else if (strcasecmp(file_ext, "jpg") == 0 ||
+             strcasecmp(file_ext, "jpeg") == 0) {
+    return "image/jpeg";
+  } else if (strcasecmp(file_ext, "png") == 0) {
+    return "image/png";
+  } else if (strcasecmp(file_ext, "pdf") == 0) {
+    return "application/pdf";
+  } else {
+    return "application/octet-stream";
+  }
+}
+
+char* url_decode(const char* src) {
+  size_t src_len = strlen(src);
+  char* decoded = malloc(src_len + 1);
+  size_t decoded_len = 0;
+
+  // decode %2x to hex
+  for (size_t i = 0; i < src_len; i++) {
+    if (src[i] == '%' && i + 2 < src_len) {
+      int hex_val;
+      sscanf(src + i + 1, "%2x", &hex_val);
+      decoded[decoded_len++] = hex_val;
+      i += 2;
+    } else {
+      decoded[decoded_len++] = src[i];
+    }
+  }
+
+  decoded[decoded_len] = '\0';
+  return decoded;
+}
+
+#-# ./c-none/details.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define BUFF 1024 * 1024 /*2^20*/
+
+int CHARS = BUFF * sizeof(char);
+
+struct Website {
+  const char* name;
+  const char* url;
+  const char* logo;
+};
+
+struct Website data[] = {
+    {"Bun", "https://bun.sh/docs", "https://bun.sh/logo_avatar.svg"},
+    {"HTMX", "https://htmx.org/docs", "https://htmx.org/img/htmx_logo.2.png"},
+    {"Hono", "https://hono.dev/", "https://hono.dev/images/logo.png"},
+};
+
+const char* c(const char* a,
+              const char* b) {  // sometimes a man just needs to copy
+  char* result = (char*)malloc(CHARS);
+  snprintf(result, BUFF, "%s%s", a, b);
+  return result;
+}
+
+const char* tag(const char* res, const char* tag, const char* content,
+                const char* attr) {
+  if (attr == NULL) {
+    attr = "";
+  }
+  snprintf((char*)res + strlen(res), BUFF, "<%s %s>%s</%s>", tag, attr, content,
+           tag);
+  return res;
+}
+
+const char* vtag(const char* result, const char* tag, const char* attr) {
+  if (attr == NULL) {
+    attr = "";
+  };
+  snprintf((char*)result + strlen(result), BUFF, "<%s %s />", tag, attr);
+  return result;
+}
+
+// return ul[li[a[url, name] img[logo]]] from websites
+const char* details() {
+  char* result = (char*)malloc(CHARS);
+  tag(result, "h3", "Welcome to HTMX!", "style=\"text-align:center;\"");
+  tag(result, "p",
+      "You're using these tools, check their docs to learn more:", NULL);
+
+  char* list = (char*)malloc(CHARS);
+  char* inner = (char*)malloc(CHARS);
+  for (int i = 0; i < sizeof(data) / sizeof(data[0]); i++) {
+    vtag(inner, "img", c("src=", data[i].logo));
+    vtag(inner, "a", c("href=", data[i].url));
+
+    tag(list, "li", strcat(inner, data[i].name), NULL);
+    memset(inner, 0, strlen(inner));
+  }
+  tag(result, "ul", list, NULL);
+
+  return result;
+}
+
+
+#-# ./c-none/main.c
+// HTMX / C (same-thing)
+#include <arpa/inet.h>
+#include <ctype.h>
+#include <dirent.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <netinet/in.h>
+#include <pthread.h>
+#include <regex.h>
+#include <signal.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <strings.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#include "./details.h"
+#include "./meta.h"
+
+#define PORT 3000
+#define BUFF 1024 * 1024 /*2^20*/
+
+bool RUNNING = true;
+
+void skill(int reason, const char* msg) {
+  printf("Killing server...\n");
+  if (msg != NULL) {
+    printf("%s\n", msg);
+  }
+
+  RUNNING = false;
+  exit(reason);
+}
+
+void interkill(int sig) { skill(EXIT_SUCCESS, NULL); }
+
+void build_http_response(const char* file_name, const char* file_ext,
+                         char* response, size_t* response_len) {
+  if (strlen(file_name) == 0) {
+    printf("Request: index.html\n");
+    file_name = "index.html";
+    file_ext = "html";
+  } else {
+    printf("Request: %s\n", file_name);
+  }
+
+  char* header = (char*)malloc(BUFF * sizeof(char));
+  make_header(header, 200, "OK", get_mime_type(file_ext));
+
+  // hard coding /details
+  if (strcmp(file_name, "details") == 0) {
+    char* details_html = (char*)details();
+    snprintf(response, BUFF, "%s%s", header, details_html);
+    *response_len = strlen(response);
+    free(header);
+    free(details_html);
+    return;
+  }
+
+  // if file not exist, response is 404 Not Found
+  int file_fd = open(file_name, O_RDONLY);
+  if (file_fd == -1) {
+    make_header(header, 404, "Not Found", "text/html");
+    snprintf(response, BUFF, "%s404 Not Found", header);
+    *response_len = strlen(response);
+    return;
+  }
+
+  // get file size for Content-Length
+  struct stat file_stat;
+  fstat(file_fd, &file_stat);
+  off_t file_size = file_stat.st_size;
+
+  // copy header to response buffer
+  *response_len = 0;
+  memcpy(response, header, strlen(header));
+  *response_len += strlen(header);
+
+  // copy file to response buffer
+  ssize_t bytes_read;
+  while ((bytes_read = read(file_fd, response + *response_len,
+                            BUFF - *response_len)) > 0) {
+    *response_len += bytes_read;
+  }
+  free(header);
+  close(file_fd);
+}
+
+void* handle_client(void* arg) {
+  int client_fd = *((int*)arg);
+  char* buffer = (char*)malloc(BUFF * sizeof(char));
+
+  ssize_t bytes_received = recv(client_fd, buffer, BUFF, 0);
+  if (bytes_received > 0) {
+    regex_t regex;
+    regcomp(&regex, "^GET /([^ ]*) HTTP/1", REG_EXTENDED);
+    regmatch_t matches[2];
+
+    // DECODE -> GET FILEEXT -> BUILD RESPONSE -> SEND RESPONSE
+    if (regexec(&regex, buffer, 2, matches, 0) == 0) {
+      buffer[matches[1].rm_eo] = '\0';
+      const char* url_encoded_file_name = buffer + matches[1].rm_so;
+      char* file_name = url_decode(url_encoded_file_name);
+
+      char file_ext[32];
+      strcpy(file_ext, get_file_extension(file_name));
+
+      char* response = (char*)malloc(BUFF * 2 * sizeof(char));
+      size_t response_len;
+      build_http_response(file_name, file_ext, response, &response_len);
+
+      send(client_fd, response, response_len, 0);
+      free(response);
+      free(file_name);
+    }
+    regfree(&regex);
+  }
+  close(client_fd);
+  free(arg);
+  free(buffer);
+  return NULL;
+}
+
+int main(int argc, char* argv[]) {
+  signal(SIGINT, interkill);
+  signal(SIGTERM, interkill);
+
+  int server_fd;
+  struct sockaddr_in server_addr;
+
+  if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+    skill(EXIT_FAILURE, "Failed to create socket");
+  }
+
+  server_addr.sin_family = AF_INET;
+  server_addr.sin_addr.s_addr = INADDR_ANY;
+  server_addr.sin_port = htons(PORT);
+
+  if (bind(server_fd, (struct sockaddr*)&server_addr, sizeof(server_addr)) <
+      0) {
+    skill(EXIT_FAILURE, "Failed to bind socket");
+  }
+  if (listen(server_fd, 10) < 0) {
+    skill(EXIT_FAILURE, "Failed to listen");
+  }
+
+  printf("Server listening on port %d\n", PORT);
+  while (RUNNING) {
+    struct sockaddr_in client_addr;
+    socklen_t client_addr_len = sizeof(client_addr);
+    int* client_fd = malloc(sizeof(int));
+
+    if ((*client_fd = accept(server_fd, (struct sockaddr*)&client_addr,
+                             &client_addr_len)) < 0) {
+      perror("accept failed");
+      continue;
+    }
+
+    pthread_t thread_id;
+    pthread_create(&thread_id, NULL, handle_client, (void*)client_fd);
+    pthread_detach(thread_id);
+  }
+
+  close(server_fd);
+  return 0;
+}
+
+#-# ./c-none/meta.h
+const char* make_header(char* header, int status_code,
+                        const char* status_message, const char* mime_type);
+const char* get_file_extension(const char* file_name);
+
+const char* get_mime_type(const char* file_ext);
+
+char* url_decode(const char* src);
+
+#-# ./c-none/assets/global.css
+body {
+  font: 300 18px Helvetica;
+}
+
+.card {
+  width: min(600px, calc(100% - 20px));
+  background: linear-gradient(90deg, #ccc 0%, #eee 100%);
+  display: flex;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px auto;
+}
+
+.wbg {
+  background: #fff;
+  border-radius: 10px;
+  margin-right: 12px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+li {
+  margin: 5px;
+  padding: 7px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-between
+}
+
+li img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 7px;
+  border-radius: 50px;
+}
+
+#-# ./c-none/assets/logo.svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171 159.9" font-size="75" font-family="Helvetica">
+  <path fill="#47d" d="m 112 77 m -81 -59.1 v 110.6 h 122 v -110.5 z m 117.3 105.9 h -112.5 v -101.2 h 112.5 z m -125.7 13.1 v -110.7 l -4.7 4.8 v 110.7 h 122 l 4.8 -4.8 z"/>
+  <text fill="#888" x="37.5" y="95">&lt; &gt;</text>
+  <text fill="#47d" x="81.5" y="101">/</text>
+</svg>
+
+#-# ./c-none/details.h
+const char* details();

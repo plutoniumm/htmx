@@ -1,0 +1,191 @@
+
+
+#-# ./ts-bun/index.tsx
+import { serveStatic } from 'hono/bun';
+import { Hono } from 'hono';
+
+import Details from './details.js';
+
+const PORT = process.env.PORT || 3000;
+const app = new Hono();
+
+app.use('/assets/*', serveStatic({ root: './' }));
+app.get('/', (c) => c.html(Bun.file('index.html').text()));
+app.get('/details', (c) => {
+  return c.html(<Details />)
+});
+
+console.log(`Server is running on ${PORT}`);
+
+export default {
+  port: PORT,
+  fetch: app.fetch,
+}
+
+#-# ./ts-bun/pnpm-lock.yaml
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  hono:
+    specifier: ^3.7.2
+    version: 3.12.6
+
+devDependencies:
+  bun-types:
+    specifier: ^0.6.2
+    version: 0.6.14
+
+packages:
+
+  /bun-types@0.6.14:
+    resolution: {integrity: sha512-sRdvu+t59+H/TVOe7FSGFWYITbqkhiCx9NxVUHt2+JOXM9gUOe5uMPvVvcr/hGngnh+/yb5a7uPE4JaS6uxujg==}
+    dev: true
+
+  /hono@3.12.6:
+    resolution: {integrity: sha512-nnLMJbBA8k+tW8XD1Xt0BfNmJswppYF2pSOVo5U3DdU72SPYUjFkPg7/Q9KfkNcsrXzxFdJQ00JYjPGancmOOA==}
+    engines: {node: '>=16.0.0'}
+    dev: false
+
+
+#-# ./ts-bun/details.tsx
+const data = [
+  ['Bun', 'https://bun.sh/docs', 'https://bun.sh/logo_avatar.svg'],
+  ['HTMX', 'https://htmx.org/docs', 'https://htmx.org/img/htmx_logo.2.png'],
+  ['Hono', 'https://hono.dev/', 'https://hono.dev/images/logo.png'],
+];
+
+
+export default () => {
+  return (
+    <>
+      <h3 style="text-align:center;">Welcome to HTMX!</h3>
+      <p>You're using these tools, check their docs to learn more:</p>
+      <ul>
+        {data.map(([name, url, img]) => (
+          <li>
+            <img src={img} />
+            <a href={url}>{name}</a>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
+#-# ./ts-bun/index.html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>HTMX / Hono (same-thing)</title>
+
+  <script src="https://htmx.org/js/htmx.js"></script>
+  <link rel="stylesheet" href="/assets/global.css">
+</head>
+
+<body>
+  <div class="card">
+    <img class="wbg" src="/assets/logo.svg" height="150px" width="150px" alt="htmx logo">
+    <div>
+      <h4 style="margin: 0;">htmx / skill-issue (same thing)</h4>
+      <p style="margin-bottom: 0;">htmx is a javascript library that allows you to access AJAX, WebSockets and Server
+        Sent Events directly in
+        HTML, using attributes</p>
+
+      <br />
+      <button hx-get="/details" hx-swap="innerHTML" hx-target="#details"
+        style="border-radius: 5px;background:#47d;color:#fff;border:0;padding: 7px;">Read
+        More</button>
+    </div>
+  </div>
+
+  <div id="details" style="width: min(600px, 100%);margin: 10px auto;"></div>
+</body>
+
+</html>
+
+#-# ./ts-bun/.gitignore
+node_modules/
+
+#-# ./ts-bun/package.json
+{
+  "scripts": {
+    "dev": "bun run index.tsx"
+  },
+  "dependencies": {
+    "hono": "^3.7.2"
+  },
+  "devDependencies": {
+    "bun-types": "^0.6.2"
+  }
+}
+
+#-# ./ts-bun/tsconfig.json
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "strict": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
+    "types": ["bun-types"]
+  }
+}
+
+
+#-# ./ts-bun/assets/global.css
+body {
+  font: 300 18px Helvetica;
+}
+
+.card {
+  width: min(600px, calc(100% - 20px));
+  background: linear-gradient(90deg, #ccc 0%, #eee 100%);
+  display: flex;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px auto;
+}
+
+.wbg {
+  background: #fff;
+  border-radius: 10px;
+  margin-right: 12px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+li {
+  margin: 5px;
+  padding: 7px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-between
+}
+
+li img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 7px;
+  border-radius: 50px;
+}
+
+#-# ./ts-bun/assets/logo.svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171 159.9" font-size="75" font-family="Helvetica">
+  <path fill="#47d" d="m 112 77 m -81 -59.1 v 110.6 h 122 v -110.5 z m 117.3 105.9 h -112.5 v -101.2 h 112.5 z m -125.7 13.1 v -110.7 l -4.7 4.8 v 110.7 h 122 l 4.8 -4.8 z"/>
+  <text fill="#888" x="37.5" y="95">&lt; &gt;</text>
+  <text fill="#47d" x="81.5" y="101">/</text>
+</svg>
