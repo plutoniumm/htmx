@@ -1,0 +1,8 @@
+{
+	"scripts": {
+		"deploy": "gh-pages -d build -b dist && rm -rf build"
+	},
+	"dependencies": {
+		"gh-pages": "^6.1.1"
+	}
+}

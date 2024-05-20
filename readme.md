@@ -4,6 +4,13 @@
   <img src="https://i.imgur.com/SqUo9lJ.png" width="330px" alt="something something peace">
 </div>
 
+## Usage
+
+```sh
+# wild isnt it, just curl it in
+sh <(curl -L "https://plutoniumm.github.io/htmx/create")
+```
+
 (Language + Runtime with Renderer)
 - [`c-none`](./c-none/readme.md): C (the full chad lifestyle, no deps)
 - [`go-templ`](./go-templ/readme.md): Go + Echo with Templ
@@ -17,6 +24,3 @@
 - [`ts-bun`](./ts-bun/readme.md): TSX + Bun with Hono
 
 > HTML Escaping, XSS/CSRF, SQL Injection etc are not my problems to deal with. Please watch out.
-
-## Usage
-idk ive not made a usage yet it may either be like just download and unzip the directory ... or like [haskell](https://github.com/yesodweb/stack-templates) where all files are written to a single file which is downloaded and built

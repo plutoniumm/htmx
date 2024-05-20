@@ -35,49 +35,20 @@ function seal(){
         continue;
       fi
 
+      # name does not include the dir
+      name="${file#$dir/}";
       # we'll use #-# as a separator during unseal
-      echo "\n\n#-# $file" >> "$dir.txt";
+      echo "\n\n#-# $name" >> "$dir.txt";
       cat "$file" >> "$dir.txt";
     fi
   done
-}
-
-function unseal(){
-  # extract dir from txt file
-  file="$1"
-  if [ -z "$file" ]; then
-    echo "Usage: unseal <file>";
-    return 1;
-  fi
-  if [ ! -f "$file" ]; then
-    echo "Error: $file is not a file";
-    return 1;
-  fi
-
-  dir="${file%.txt}";
-  echo "Unsealing $file into ./$dir";
-  rm -rf "$dir";
-
-  path=""
-  while IFS= read -r line; do
-    if [ "${line:0:4}" == "#-# " ]; then
-      path="${line:4}";
-      mkdir -p "$(dirname "$dir/$path")";
-    else
-      # if path is empty, we're not in a file
-      if [ -z "$path" ]; then
-        continue;
-      fi
-      echo -e "$line" >> "$dir/$path";
-    fi
-  done < "$file"
 }
 
 
 nobuild=("assets" ".git" "build")
 function build(){
   mkdir -p build;
-  rm -rf build/*;
+  rm -rf build/* ./**/node_modules;
 
   for dir in $(find . -type d -d 1); do
     if [ -d "$dir" ]; then
@@ -90,11 +61,14 @@ function build(){
       mv "$dir.txt" "build/$(basename $dir).txt";
     fi
   done
+
+  cp ./create ./build/create;
+  echo "Built!";
 }
 
 function deploy(){
   build;
-  gh-pages -d build;
+  gh-pages -d build -b dist;
 }
 
 "$@"
