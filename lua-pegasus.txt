@@ -1,6 +1,6 @@
 
 
-#-# ./lua-pegasus/index.html
+#-# index.html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +35,7 @@
 
 </html>
 
-#-# ./lua-pegasus/main.lua
+#-# main.lua
 local Pegasus = require 'pegasus'
 local Files = require 'pegasus.plugins.files'
 local Router = require 'pegasus.plugins.router'
@@ -84,7 +84,7 @@ local server = Pegasus:new({
 
 server:start()
 
-#-# ./lua-pegasus/global.css
+#-# global.css
 body {
   font: 300 18px Helvetica;
 }
@@ -128,7 +128,7 @@ li img {
   border-radius: 50px;
 }
 
-#-# ./lua-pegasus/logo.svg
+#-# logo.svg
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171 159.9" font-size="75" font-family="Helvetica">
   <path fill="#47d" d="m 112 77 m -81 -59.1 v 110.6 h 122 v -110.5 z m 117.3 105.9 h -112.5 v -101.2 h 112.5 z m -125.7 13.1 v -110.7 l -4.7 4.8 v 110.7 h 122 l 4.8 -4.8 z"/>
   <text fill="#888" x="37.5" y="95">&lt; &gt;</text>

@@ -1,6 +1,6 @@
 
 
-#-# ./c-none/index.html
+#-# index.html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +38,7 @@
 
 </html>
 
-#-# ./c-none/meta.c
+#-# meta.c
 #include "./meta.h"
 
 #include <stdio.h>
@@ -114,7 +114,7 @@ char* url_decode(const char* src) {
   return decoded;
 }
 
-#-# ./c-none/details.c
+#-# details.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -182,7 +182,7 @@ const char* details() {
 }
 
 
-#-# ./c-none/main.c
+#-# main.c
 // HTMX / C (same-thing)
 #include <arpa/inet.h>
 #include <ctype.h>
@@ -353,7 +353,7 @@ int main(int argc, char* argv[]) {
   return 0;
 }
 
-#-# ./c-none/meta.h
+#-# meta.h
 const char* make_header(char* header, int status_code,
                         const char* status_message, const char* mime_type);
 const char* get_file_extension(const char* file_name);
@@ -362,7 +362,7 @@ const char* get_mime_type(const char* file_ext);
 
 char* url_decode(const char* src);
 
-#-# ./c-none/assets/global.css
+#-# assets/global.css
 body {
   font: 300 18px Helvetica;
 }
@@ -406,12 +406,12 @@ li img {
   border-radius: 50px;
 }
 
-#-# ./c-none/assets/logo.svg
+#-# assets/logo.svg
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171 159.9" font-size="75" font-family="Helvetica">
   <path fill="#47d" d="m 112 77 m -81 -59.1 v 110.6 h 122 v -110.5 z m 117.3 105.9 h -112.5 v -101.2 h 112.5 z m -125.7 13.1 v -110.7 l -4.7 4.8 v 110.7 h 122 l 4.8 -4.8 z"/>
   <text fill="#888" x="37.5" y="95">&lt; &gt;</text>
   <text fill="#47d" x="81.5" y="101">/</text>
 </svg>
 
-#-# ./c-none/details.h
+#-# details.h
 const char* details();

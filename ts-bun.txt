@@ -1,6 +1,6 @@
 
 
-#-# ./ts-bun/index.tsx
+#-# index.tsx
 import { serveStatic } from 'hono/bun';
 import { Hono } from 'hono';
 
@@ -22,36 +22,7 @@ export default {
   fetch: app.fetch,
 }
 
-#-# ./ts-bun/pnpm-lock.yaml
-lockfileVersion: '6.0'
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
-dependencies:
-  hono:
-    specifier: ^3.7.2
-    version: 3.12.6
-
-devDependencies:
-  bun-types:
-    specifier: ^0.6.2
-    version: 0.6.14
-
-packages:
-
-  /bun-types@0.6.14:
-    resolution: {integrity: sha512-sRdvu+t59+H/TVOe7FSGFWYITbqkhiCx9NxVUHt2+JOXM9gUOe5uMPvVvcr/hGngnh+/yb5a7uPE4JaS6uxujg==}
-    dev: true
-
-  /hono@3.12.6:
-    resolution: {integrity: sha512-nnLMJbBA8k+tW8XD1Xt0BfNmJswppYF2pSOVo5U3DdU72SPYUjFkPg7/Q9KfkNcsrXzxFdJQ00JYjPGancmOOA==}
-    engines: {node: '>=16.0.0'}
-    dev: false
-
-
-#-# ./ts-bun/details.tsx
+#-# details.tsx
 const data = [
   ['Bun', 'https://bun.sh/docs', 'https://bun.sh/logo_avatar.svg'],
   ['HTMX', 'https://htmx.org/docs', 'https://htmx.org/img/htmx_logo.2.png'],
@@ -76,7 +47,7 @@ export default () => {
   );
 };
 
-#-# ./ts-bun/index.html
+#-# index.html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -111,10 +82,10 @@ export default () => {
 
 </html>
 
-#-# ./ts-bun/.gitignore
+#-# .gitignore
 node_modules/
 
-#-# ./ts-bun/package.json
+#-# package.json
 {
   "scripts": {
     "dev": "bun run index.tsx"
@@ -127,7 +98,7 @@ node_modules/
   }
 }
 
-#-# ./ts-bun/tsconfig.json
+#-# tsconfig.json
 {
   "compilerOptions": {
     "esModuleInterop": true,
@@ -139,7 +110,7 @@ node_modules/
 }
 
 
-#-# ./ts-bun/assets/global.css
+#-# assets/global.css
 body {
   font: 300 18px Helvetica;
 }
@@ -183,7 +154,7 @@ li img {
   border-radius: 50px;
 }
 
-#-# ./ts-bun/assets/logo.svg
+#-# assets/logo.svg
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171 159.9" font-size="75" font-family="Helvetica">
   <path fill="#47d" d="m 112 77 m -81 -59.1 v 110.6 h 122 v -110.5 z m 117.3 105.9 h -112.5 v -101.2 h 112.5 z m -125.7 13.1 v -110.7 l -4.7 4.8 v 110.7 h 122 l 4.8 -4.8 z"/>
   <text fill="#888" x="37.5" y="95">&lt; &gt;</text>

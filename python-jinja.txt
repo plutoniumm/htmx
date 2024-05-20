@@ -1,6 +1,6 @@
 
 
-#-# ./python-jinja/index.html
+#-# index.html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,10 +38,10 @@
 
 </html>
 
-#-# ./python-jinja/requirements.txt
+#-# requirements.txt
 Flask==3.0.2
 
-#-# ./python-jinja/index.py
+#-# index.py
 from flask import Flask, render_template, send_file, request, send_from_directory
 from datetime import datetime
 from sys import argv
@@ -72,10 +72,10 @@ def details():
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=PORT)
 
-#-# ./python-jinja/.gitignore
+#-# .gitignore
 __pycache__
 
-#-# ./python-jinja/templates/details.html
+#-# templates/details.html
 <h3 style="text-align:center;">Welcome to HTMX!</h3>
 <ul>
   {% for item in data %}
@@ -86,7 +86,7 @@ __pycache__
   {% endfor %}
 </ul>
 
-#-# ./python-jinja/assets/global.css
+#-# assets/global.css
 body {
   font: 300 18px Helvetica;
 }
@@ -139,7 +139,7 @@ li img {
   border-radius: 50px;
 }
 
-#-# ./python-jinja/assets/logo.svg
+#-# assets/logo.svg
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171 159.9" font-size="75" font-family="Helvetica">
   <path fill="#47d" d="m 112 77 m -81 -59.1 v 110.6 h 122 v -110.5 z m 117.3 105.9 h -112.5 v -101.2 h 112.5 z m -125.7 13.1 v -110.7 l -4.7 4.8 v 110.7 h 122 l 4.8 -4.8 z"/>
   <text fill="#888" x="37.5" y="95">&lt; &gt;</text>
