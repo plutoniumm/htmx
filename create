@@ -1,6 +1,6 @@
 #!/bin/bash
 function get(){
-  curl -L "https://plutoniumm.github.io/htmx/$1.txt" > "$1";
+  curl -L "https://plutoniumm.github.io/htmx/$1.txt" > "$1.txt";
 };
 
 function unseal(){
@@ -15,21 +15,21 @@ function unseal(){
     return 1;
   fi
 
-  dir="${file%.txt}";
-  echo "Unsealing $file into ./$dir";
+  echo "Unsealing $file";
   rm -rf "$dir";
 
   path=""
   while IFS= read -r line; do
     if [ "${line:0:4}" == "#-# " ]; then
       path="${line:4}";
-      mkdir -p "$(dirname "$dir/$path")";
+      echo "Creating ./$path";
+      mkdir -p "$(dirname "./$path")";
     else
       # if path is empty, we're not in a file
       if [ -z "$path" ]; then
         continue;
       fi
-      echo -e "$line" >> "$dir/$path";
+      echo -e "$line" >> "./$path";
     fi
   done < "$file";
 
@@ -55,11 +55,11 @@ function ask(){
   read dir;
   if [ "$dir" != "." ]; then
     mkdir -p "$dir";
-    mv "$lang" "$dir";
+    mv "$lang.txt" "$dir";
     cd "$dir";
   fi
 
-  unseal "$lang";
+  unseal "$lang.txt";
 };
 
 ask;
