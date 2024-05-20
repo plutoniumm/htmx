@@ -32,6 +32,8 @@ function unseal(){
       echo -e "$line" >> "$dir/$path";
     fi
   done < "$file";
+
+  rm "$file";
 };
 
 languages=( "go-templ" "ocaml-dream" "ts-bun" "haskell-yesod" "ruby-rails"
@@ -57,7 +59,7 @@ function ask(){
     cd "$dir";
   fi
 
-  unseal "$lang.txt";
+  unseal "$lang";
 };
 
 ask;
