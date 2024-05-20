@@ -1,4 +1,3 @@
-ignores=( "readme.md" )
 
 # qol function to check if str 1 is in array 2
 function has(){
@@ -12,6 +11,7 @@ function has(){
   echo $inside;
 }
 
+ignores=( "readme.md" )
 function seal(){
   # convert dir into a single txt file
   dir="$1"
@@ -36,7 +36,7 @@ function seal(){
       fi
 
       # we'll use #-# as a separator during unseal
-      echo -e "\n\n#-# $file" >> "$dir.txt";
+      echo "\n\n#-# $file" >> "$dir.txt";
       cat "$file" >> "$dir.txt";
     fi
   done
@@ -73,4 +73,28 @@ function unseal(){
   done < "$file"
 }
 
-unseal "$1"
+
+nobuild=("assets" ".git" "build")
+function build(){
+  mkdir -p build;
+  rm -rf build/*;
+
+  for dir in $(find . -type d -d 1); do
+    if [ -d "$dir" ]; then
+      # ignore list
+      if [ $(has $(basename "$dir") "${nobuild[@]}") == true ]; then
+        continue;
+      fi
+
+      seal "$dir";
+      mv "$dir.txt" "build/$(basename $dir).txt";
+    fi
+  done
+}
+
+function deploy(){
+  build;
+  gh-pages -d build;
+}
+
+"$@"

@@ -1,16 +1,5 @@
 .DS_Store
 **/.DS_Store
 
-ts-bun/index.html
-ts-bun/assets/
-
-go-templ/index.html
-go-templ/assets/
-
-rust-leptos/index.html
-rust-leptos/assets/
-
-python-jinja/index.html
-python-jinja/assets/
-
 _build/
+build/
