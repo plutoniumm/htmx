@@ -1,7 +1,7 @@
 #!/bin/bash
 function get(){
-  curl -L "https://plutoniumm.github.io/htmx/$1.txt" > "$1"
-}
+  curl -L "https://plutoniumm.github.io/htmx/$1.txt" > "$1";
+};
 
 function unseal(){
   # extract dir from txt file
@@ -32,7 +32,7 @@ function unseal(){
       echo -e "$line" >> "$dir/$path";
     fi
   done < "$file";
-}
+};
 
 languages=( "go-templ" "ocaml-dream" "ts-bun" "haskell-yesod" "ruby-rails"
 "c-none" "lua-pegasus" "php-none" "rust-leptos" "python-jinja" );
@@ -58,6 +58,6 @@ function ask(){
   fi
 
   unseal "$lang.txt";
-}
+};
 
 ask;
