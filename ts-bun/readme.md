@@ -1,1 +1,4 @@
 ## ts-bun
+
+Dependencies
+- ts

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+hasRails="$(which rails)"
+
+if [ -z "$hasRails" ]; then
+  echo "Rails is not installed. visit https://rubyonrails.org/"
+fi

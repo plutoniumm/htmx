@@ -1,0 +1,6 @@
+#!/bin/bash
+
+hasCargo="$(which cargo)"
+if [ -z "$hasCargo" ]; then
+  echo "Cargo is not installed. visit https://crates.io/"
+fi

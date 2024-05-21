@@ -53,6 +53,10 @@ function ask(){
 
   echo "Enter name of directory (.)";
   read dir;
+  if [ -z "$dir" ]; then
+    dir=".";
+  fi
+
   if [ "$dir" != "." ]; then
     mkdir -p "$dir";
     mv "$lang.txt" "$dir";

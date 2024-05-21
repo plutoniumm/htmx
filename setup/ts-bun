@@ -1,0 +1,14 @@
+#!/bin/bash
+
+hasBun="$(which bun)"
+if [ -z "$hasBun" ]; then
+  echo "bun is not installed! visit https://bun.sh/"
+fi
+
+pkgmgr="$(which pnpm) || $(which npm) || $(which yarn)"
+if [ -z "$pkgmgr" ]; then
+  echo "No package manager found! Please install pnpm, npm or yarn."
+fi
+
+echo "Installing dependencies..."
+$pkgmgr install
