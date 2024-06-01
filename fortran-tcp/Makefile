@@ -2,15 +2,16 @@ CC = gcc
 FC = gfortran
 FCFLAGS = -Wall -Wextra -std=f2018 -pedantic -fcheck=all
 
-OBJS = mod_dill.o http.o libdill.a
+OBJS = mod_dill.o libdill.a modhttp.o
 
-.PHONY: all clean
+.PHONY: all cleans
 .SUFFIXES: .f90 .o
 
 all: server
 
 server: server.f90 $(OBJS)
-	$(FC) $(FCFLAGS) $< -o $@ libdill.a -pthread
+	$(FC) $(FCFLAGS) $< -o $@ modhttp.o libdill.a -pthread
+	# gfortran -Wall -Wextra -std=f2018 -pedantic -fcheck=all server.f90 -o server modhttp.o libdill.a -pthread
 
 libdill:
 	git clone https://github.com/sustrik/libdill
@@ -25,7 +26,7 @@ libdill.a: libdill
 
 mod_dill.o: mod_dill.f90
 
-http.o: http.f90
+modhttp.o: modhttp.f90
 
 clean:
 	$(RM) -rf server *.o *.mod
