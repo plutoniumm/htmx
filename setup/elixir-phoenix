@@ -1,0 +1,9 @@
+#!/bin/bash
+
+hasMix="$(which mix)"
+if [ -z "$hasMix" ]; then
+  echo "mix is not installed. visit https://elixir-lang.org/"
+fi
+
+mix deps.get
+# run with mix phx.server

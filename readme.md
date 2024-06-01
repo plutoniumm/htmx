@@ -23,4 +23,6 @@ sh <(curl -L "https://plutoniumm.github.io/htmx/create")
 - [`rust-leptos`](./rust-leptos/readme.md): Rust + Actix with Leptos
 - [`ts-bun`](./ts-bun/readme.md): TSX + Bun with Hono
 
-> HTML Escaping, XSS/CSRF, SQL Injection etc are not my problems to deal with. Please watch out.
+## Notes
+- The idea was to take the most popular frameworks and strip them down to then allow you to incrementally add features as needed using whatever hammer you see fit
+-  HTML Escaping, XSS/CSRF, SQL Injection etc are not my problems to deal with. Please watch out. All input is error.
