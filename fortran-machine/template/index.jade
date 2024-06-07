@@ -1,0 +1,15 @@
+.card
+  img(src="/assets/logo.svg"height="150px"width="150px"alt="htmx-logo")
+  div
+    h4(style="margin:0") htmx / skill-issue (same thing)
+    p(style="margin-bottom:0")
+      span htmx is a javascript library that allows you to access
+      span AJAX, WebSockets and Server Sent Events directly in
+      span HTML, using attributes
+
+    br
+    button(hx-get="/details"hx-swap="innerHTML"hx-target="#details") Read More
+  /div
+/div
+
+div(id="details"style="width:min&#40;600px&#44;100%&#41;;margin:auto;")

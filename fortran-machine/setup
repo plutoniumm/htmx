@@ -1,0 +1,12 @@
+#!/bin/bash
+git clone https://github.com/mapmeld/fortran-machine --depth 1 --branch main;
+mv fortran-machine/flibs-0.9 flibs-0.9;
+rm -rf fortran-machine;
+
+wget https://raw.githubusercontent.com/nginx/nginx/master/conf/fastcgi_params;
+
+# - gfortran
+# - make
+# - nginx
+# - libfcgi-dev
+# - spawn-fcgi
