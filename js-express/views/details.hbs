@@ -1,0 +1,10 @@
+<h3 style="text-align:center;">Welcome to HTMX!</h3>
+<p>You're using these tools, check their docs to learn more:</p>
+<ul>
+  {{#each data}}
+  <li>
+    <img src={{this.[2]}} />
+    <a href={{this.[1]}}>{{this.[0]}}</a>
+  </li>
+  {{/each}}
+</ul>
